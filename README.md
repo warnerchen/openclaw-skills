@@ -1,3 +1,4 @@
 # OpenClaw Skills
 
-Custom-built skills.
+Some custom skills built for OpenClaw.
+
