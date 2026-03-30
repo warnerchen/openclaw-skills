@@ -30,10 +30,9 @@ agent-browser snapshot -i
 3. 通过 Case 编号进行查询
 
 ```bash
-# 确认 “搜索此列表” 的实际 Ref，一般情况下为 e35
-# 英文界面为 “search this list”
+# 确认 “搜索此列表”、“Search this list” 的实际 Ref
 agent-browser snapshot -i | grep -Ei '搜索此列表|Search this list'
-agent-browser fill @e35 "<CASE_ID>"
+agent-browser fill @exxx "<CASE_ID>"
 ```
 
 3. 模拟点击 Enter
@@ -45,9 +44,9 @@ agent-browser press "Enter"
 4. 进入 Case
 
 ```bash
-# 确认 Case 的实际跳转 Ref，一般情况下为 e72
+# 确认 Case 的实际跳转 Ref
 agent-browser snapshot -i | grep "<CASE_ID>" | grep link
-agent-browser click e72 && agent-browser wait --load networkidle
+agent-browser click @exxx && agent-browser wait --load networkidle
 ```
 
 5. 等待页面加载完成，查看是否有 Ref：

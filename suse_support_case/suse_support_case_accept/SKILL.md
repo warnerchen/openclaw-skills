@@ -36,9 +36,9 @@ description: Accept a Salesforce case using a Case ID.
 找到 “接受”、“Accept” 按钮并点击：
 
 ```bash
-# 确认 “接受”、“Accept” 的实际 Ref，一般情况下为 e59
+# 确认 “接受”、“Accept” 的实际 Ref
 agent-browser snapshot -i | grep -Ei '接受|Accept'
-agent-browser click e59 && agent-browser wait --load networkidle
+agent-browser click @exxx && agent-browser wait --load networkidle
 ```
 
 ---
