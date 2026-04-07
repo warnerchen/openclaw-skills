@@ -9,44 +9,32 @@ A collection of skills for operating SUSE Support Cases in Salesforce.
 
 ## Login to Salesforce via Okta
 
+This `suse_okta_salesforce_login.sh` script automates the login process to Salesforce via Okta using agent-browser.
+
+It intelligently determines whether login is required and handles multiple scenarios including:
+
+- Existing active Salesforce session
+- Cached Okta session (no login required)
+- Standard login with username/password
+- MFA (Okta Verify push)
+- MFA rejection or login failure
+
+### Usage
+
 ```bash
-# Open the login page
-agent-browser --profile ~/.agent-browser/profile/suse_okta_profile open https://suse.okta.com
+bash ./suse_okta_salesforce_login.sh
+```
 
-# Verify the references (Refs) of each button
-agent-browser snapshot -i
+### Debug
 
-# Enter the username
-agent-browser fill @e7 "<your_username>"
-
-# Enter the password
-agent-browser fill @e8 "<your_password>"
-
-# Click Log In to proceed to the multi-factor authentication page
-agent-browser click e5
-
-# Use Okta Verify for authentication
-agent-browser click e5
-
-# After verification, you will be redirected to the My Applications dashboard; locate Salesforce
-agent-browser snapshot -i | grep "Salesforce"
-    - group "Salesforce" [ref=e38] clickable [cursor:pointer]
-
-# Click Salesforce
-agent-browser click e38
-
-# Salesforce usually loads slowly; you can use the following command to wait until the page is fully loaded
-agent-browser wait --load networkidle
+```bash
+bash -x ./suse_okta_salesforce_login.sh
 ```
 
 ## Features
 
 - `suse_support_case_accept`: Accept a case
-
 - `suse_support_case_download_files`: Download case attachments
-
 - `suse_support_case_reply`: Reply to a case
-
 - `suse_support_case_search_queue`: View case queues
-
 - `suse_support_case_view`: View case details
