@@ -185,6 +185,24 @@ open_salesforce_from_dashboard() {
   wait_page
 }
 
+cleanup_agent_browser() {
+  log "Cleaning agent-browser processes..."
+
+  agent-browser close >/dev/null 2>&1 || true
+  pkill -TERM -f '[a]gent-browser' >/dev/null 2>&1 || true
+
+  for _ in {1..10}; do
+    if ! pgrep -f '[a]gent-browser' >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 0.5
+  done
+
+  log "agent-browser still running, forcing kill..."
+  pkill -KILL -f '[a]gent-browser' >/dev/null 2>&1 || true
+  sleep 0.5
+}
+
 command -v agent-browser >/dev/null 2>&1 || fail "agent-browser not found"
 
 # Step 1: Check if Salesforce session is still valid
@@ -203,10 +221,7 @@ fi
 log "Salesforce requires login."
 
 # Step 2: Clean up existing agent-browser processes
-log "Cleaning agent-browser processes..."
-agent-browser close >/dev/null 2>&1 || true
-pkill -9 -f "agent-browser" >/dev/null 2>&1 || true
-sleep 1
+cleanup_agent_browser
 
 # Step 3: Open Okta and check if profile is already authenticated
 log "Opening Okta..."
