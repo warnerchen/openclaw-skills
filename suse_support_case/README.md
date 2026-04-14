@@ -11,6 +11,8 @@ A collection of skills for operating SUSE Support Cases in Salesforce.
 
 This `suse_suseid_salesforce_login.sh` script automates the login process to Salesforce via SUSEID using `agent-browser`.
 
+> Since Okta will be migrated to SUSEID, please do not use `suse_okta_salesforce_login.sh` to log in to Salesforce.
+
 ### Flowchart
 
 ```mermaid
